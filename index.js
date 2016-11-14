@@ -19,12 +19,6 @@ bot.on('text', async (ctx) => {
   await ctx.reply(sentence.string)
 })
 
-bot.command('image', async (ctx) => {
-  if (!generator) {
-    return
-  }
-})
-
 bot.on('document', optional((ctx) => ctx.from.id == process.env.ADMIN_ID && ctx.message.document.mime_type === 'text/plain', async (ctx) => {
   await ctx.reply('Loading sentences...')
   const fileLink = await ctx.telegram.getFileLink(ctx.message.document.file_id)
