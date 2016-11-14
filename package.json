@@ -1,0 +1,33 @@
+{
+  "name": "markovchainbot",
+  "version": "0.0.1",
+  "description": "Markov's chain powered Telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro-bot -d ${NOW_URL}",
+    "watch": "supervisor -x micro-bot index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dotcypress/markovchainbot.git"
+  },
+  "keywords": [
+    "bot",
+    "markov",
+    "chain"
+  ],
+  "author": "Vitaly Domnikov <dotcypress@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dotcypress/markovchainbot/issues"
+  },
+  "homepage": "https://github.com/dotcypress/markovchainbot#readme",
+  "dependencies": {
+    "markov-strings": "^1.2.0",
+    "micro-bot": "^0.6.1",
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "supervisor": "^0.11.0"
+  }
+}
