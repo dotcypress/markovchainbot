@@ -11,7 +11,7 @@ const options = {
 let generator
 const bot = new Composer()
 
-bot.command('quote', async (ctx) => {
+bot.on('text', async (ctx) => {
   if (!generator) {
     return
   }
