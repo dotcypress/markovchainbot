@@ -1,15 +1,11 @@
 const { Composer, optional, log } = require('micro-bot')
-
 const fetch = require('node-fetch')
 const Markov = require('markov-strings')
 
-const options = {
-  minWords: 5,
-  minScore: 10
-}
+const options = { minWords: 7, minScore: 15 }
+const bot = new Composer()
 
 let generator
-const bot = new Composer()
 
 bot.on('text', async (ctx) => {
   if (!generator) {
