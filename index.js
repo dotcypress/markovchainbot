@@ -1,21 +1,12 @@
-const { Composer, optional, log } = require('micro-bot')
+const { Composer, optional, acl } = require('micro-bot')
 const fetch = require('node-fetch')
 const Markov = require('markov-strings')
 
 const options = { minWords: 7, minScore: 15 }
 const bot = new Composer()
-
 let generator
 
-bot.on('text', async (ctx) => {
-  if (!generator) {
-    return
-  }
-  const sentence = await generator.generateSentence()
-  await ctx.reply(sentence.string)
-})
-
-bot.on('document', optional((ctx) => ctx.from.id == process.env.ADMIN_ID && ctx.message.document.mime_type === 'text/plain', async (ctx) => {
+bot.on('document', acl(process.env.ADMIN_USERNAME, async (ctx) => {
   await ctx.reply('Loading sentences...')
   const fileLink = await ctx.telegram.getFileLink(ctx.message.document.file_id)
   try {
@@ -27,6 +18,11 @@ bot.on('document', optional((ctx) => ctx.from.id == process.env.ADMIN_ID && ctx.
   } catch (err) {
     await ctx.reply('☹️')
   }
+}))
+
+bot.on('text', optional(() => generator, async (ctx) => {
+  const sentence = await generator.generateSentence()
+  await ctx.reply(sentence.string)
 }))
 
 module.exports = bot
